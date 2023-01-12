@@ -1,10 +1,13 @@
-import {Button} from "antd"
+import { Button,  } from 'antd';
 
 function App() {
   return (
-  <div>
- <Button type="primary">Primary Button</Button>
-  </div>
+    <div>Hello
+      <div>       <Button type="danger">Primary Button</Button></div>
+      <h1 className="text-3xl font-bold underline text-red-600">
+      Hello world!
+    </h1>
+    </div>
   );
 }
 
