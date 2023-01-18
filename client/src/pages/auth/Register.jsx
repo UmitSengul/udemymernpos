@@ -1,6 +1,6 @@
-import { Button, Form, Input } from "antd";
+import { Button, Carousel, Form, Input } from "antd";
 import { Link } from "react-router-dom";
-
+import AuthCarousel from "../../components/auth/AuthCarousel";
 const Register = () => {
   return (
     <div className="h-screen">
@@ -47,14 +47,37 @@ const Register = () => {
             <Form.Item
               label="Şifre Tekrar"
               name={"passwordAgain"}
+              dependencies={["password"]}
               rules={[
                 {
                   required: true,
                   message: "Şifre Tekrar Alanı Boş Bırakılamaz!",
                 },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error(
+                        "Şifreler Aynı Olmak Zorunda!"
+                      )
+                    );
+                  },
+                }),
               ]}
             >
               <Input.Password />
+
+    
+          
+            
+    
+
+          
+    
+    
+  
             </Form.Item>
             <Form.Item>
               <Button
@@ -74,10 +97,36 @@ const Register = () => {
             </Link>
           </div>
         </div>
-        <div className="xl:w-4/6 min-w-[800px]">right</div>
+        <div className="xl:w-4/6 lg:w-3/5 md:w-1/2 md:flex hidden bg-[#6c63ff] h-full">
+          <div className="w-full h-full flex items-center">
+            <div className="w-full">
+              <Carousel className="!h-full px-6" autoplay>
+                <AuthCarousel
+                  img="/images/responsive.svg"
+                  title="Responsive"
+                  desc="Tüm Cihaz Boyutlarıyla Uyumluluk"
+                />
+                <AuthCarousel
+                  img="/images/statistic.svg"
+                  title="İstatistikler"
+                  desc="Geniş Tutulan İstatistikler"
+                />
+                <AuthCarousel
+                  img="/images/customer.svg"
+                  title="Müşteri Memnuniyeti"
+                  desc="Deneyim Sonunda Üründen Memnun Müşteriler"
+                />
+                <AuthCarousel
+                  img="/images/admin.svg"
+                  title="Yönetici Paneli"
+                  desc="Tek Yerden Yönetim"
+                />
+              </Carousel>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-
 export default Register;
